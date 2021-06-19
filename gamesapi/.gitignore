@@ -23,7 +23,8 @@ media
 
 # C extensions
 *.so
-
+*/migrations
+*/settings.py
 # Distribution / packaging
 .Python
 build/
