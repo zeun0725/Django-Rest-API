@@ -27,3 +27,15 @@ rendered_game1 = renderer.render(game_serializer1.data)
 rendered_game2 = renderer.render(game_serializer2.data)
 print(rendered_game1)
 print(rendered_game2)
+
+json_string_for_new_game = '{"name":"Tomb Raider Extreme Edition" ,"release_date":"2021-07-07T00:58:00", "game_category":"3D RPG", "played": false}'
+json_bytes_for_new_game = bytes(json_string_for_new_game, encoding="UTF-8")
+stream_for_new_game = BytesIO(json_bytes_for_new_game)
+parser = JSONParser()
+parsed_new_game = parser.parse(stream_for_new_game)
+print(parsed_new_game)
+
+new_game_serializer = GameSerializer(data=parsed_new_game)
+if new_game_serializer.is_valid():
+    new_game = new_game_serializer.save()
+    print(new_game.name)
