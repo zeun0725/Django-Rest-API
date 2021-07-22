@@ -6,6 +6,16 @@ from games.serializers import GameSerializer, GameCategorySerializer, PlayerSeri
 
 # 제네릭 클래스 기반 뷰의 활용
 
+class ApiRoot(generics.GenericAPIView):
+    name = 'api-root'
+    def get(self, request, *args, **kwargs):
+        return Response({
+            'players': reverse(PlayerList.name, request=request),
+            'game-categories': reverse(GameCategoryList.name, request=request),
+            'games': reverse(GameList.name, request=request),
+            'scores': reverse(PlayerScoreList.name, request=request)
+        })
+
 class GameCategoryList(generics.ListCreateAPIView):
     queryset = GameCategory.objects.all()
     serializer_class = GameCategorySerializer
