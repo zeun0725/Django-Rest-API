@@ -2,3 +2,11 @@
 
 ### 원본 소스
 **https://github.com/PacktPublishing/Building-RESTful-Python-Web-Services**
+
+
+### postgre
+```
+psql --username=test --dbname=games --command="\dt"
+psql --username=test --dbname=games --command="SELECT * FROM games_gamecategory;"
+```
+
