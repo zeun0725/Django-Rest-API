@@ -39,3 +39,17 @@ new_game_serializer = GameSerializer(data=parsed_new_game)
 if new_game_serializer.is_valid():
     new_game = new_game_serializer.save()
     print(new_game.name)
+
+
+# ==================
+# create game model
+# http POST 0.0.0.0:8000/games/ name='Tetris Reloaded' game_category='2D mobile arcade' played=false release_date='2021-07-27T00:00:00'
+# http POST 0.0.0.0:8000/games/ name='Puzzle Craft' game_category='2D mobile arcade' played=false release_date='2021-07-27T00:00:00'
+# http POST 0.0.0.0:8000/games/ name='Blek' game_category='2D mobile arcade' played=false release_date='2021-07-27T00:00:00'
+# http POST 0.0.0.0:8000/games/ name='Scribblenauts Unlimited' game_category='2D mobile arcade' played=false release_date='2021-07-27T00:00:00'
+# http POST 0.0.0.0:8000/games/ name='Cut the Rope: Magic' game_category='2D mobile arcade' played=false release_date='2021-07-27T00:00:00'
+# http POST 0.0.0.0:8000/games/ name='Tiny Dice Dungeon' game_category='2D mobile arcade' played=false release_date='2021-07-27T00:00:00'
+# http POST 0.0.0.0:8000/games/ name='A Dark Room' game_category='2D mobile arcade' played=false release_date='2021-07-27T00:00:00'
+# http POST 0.0.0.0:8000/games/ name='Bastion' game_category='2D mobile arcade' played=false release_date='2021-07-27T00:00:00'
+# http POST 0.0.0.0:8000/games/ name='Welcome to the Dungeon' game_category='2D mobile arcade' played=false release_date='2021-07-27T00:00:00'
+# http POST 0.0.0.0:8000/games/ name='Dust: An Elysian Tail' game_category='2D mobile arcade' played=false release_date='2021-07-27T00:00:00'
