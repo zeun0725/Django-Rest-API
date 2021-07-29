@@ -13,3 +13,5 @@ psql --username=test --dbname=games --command="SELECT * FROM games_player;"
 psql --username=test --dbname=games --command="SELECT * FROM games_playerscore;"
 ```
 
+### 슈퍼유저 만들기
+python manage.py createsuperuser 
