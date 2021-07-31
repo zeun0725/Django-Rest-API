@@ -11,5 +11,8 @@ psql --username=test --dbname=games --command="SELECT * FROM games_gamecategory;
 psql --username=test --dbname=games --command="SELECT * FROM games_game;"
 psql --username=test --dbname=games --command="SELECT * FROM games_player;"
 psql --username=test --dbname=games --command="SELECT * FROM games_playerscore;"
+psql --username=test --dbname=games --command="SELECT id FROM auth_user WHERE username = 'root';"
 ```
 
+### 슈퍼유저 만들기
+python manage.py createsuperuser 
