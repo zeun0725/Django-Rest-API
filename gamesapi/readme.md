@@ -15,4 +15,9 @@ psql --username=test --dbname=games --command="SELECT id FROM auth_user WHERE us
 ```
 
 ### 슈퍼유저 만들기
-python manage.py createsuperuser 
+python manage.py createsuperuser
+superuser: root
+ 
+
+### 의존 패키지
+pip install django-filter

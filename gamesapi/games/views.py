@@ -6,6 +6,7 @@ from games.serializers import GameSerializer, GameCategorySerializer, PlayerSeri
 from django.contrib.auth.models import User
 from rest_framework import permissions
 from games.permissions import IsOwnerOrReadOnly
+from rest_framework.throttling import ScopedRateThrottle
 
 # 제네릭 클래스 기반 뷰의 활용
 
@@ -36,12 +37,16 @@ class GameCategoryList(generics.ListCreateAPIView):
     queryset = GameCategory.objects.all()
     serializer_class = GameCategorySerializer
     name = 'gamecategory-list'
+    throttle_scope = 'game-categories'
+    throttle_classes = (ScopedRateThrottle,)
 
 
 class GameCategoryDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = GameCategory.objects.all()
     serializer_class = GameCategorySerializer
-    name = 'gamecategory-detail'
+    name = 'gamecategory-detail',
+    throttle_scope = 'game-categories',
+    throttle_classes = (ScopedRateThrottle,)
 
 
 class GameList(generics.ListCreateAPIView):
