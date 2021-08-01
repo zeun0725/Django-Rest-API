@@ -7,6 +7,8 @@ from django.contrib.auth.models import User
 from rest_framework import permissions
 from games.permissions import IsOwnerOrReadOnly
 from rest_framework.throttling import ScopedRateThrottle
+from django_filters.rest_framework import FilterSet
+from django_filters import NumberFilter, DateTimeFilter, AllValuesFilter
 
 # 제네릭 클래스 기반 뷰의 활용
 
@@ -33,12 +35,16 @@ class ApiRoot(generics.GenericAPIView):
             'users': reverse(UserList.name, request=request),
         })
 
+
 class GameCategoryList(generics.ListCreateAPIView):
     queryset = GameCategory.objects.all()
     serializer_class = GameCategorySerializer
     name = 'gamecategory-list'
     throttle_scope = 'game-categories'
     throttle_classes = (ScopedRateThrottle,)
+    filter_fields = ('name',)
+    search_fields = ('^name',)
+    ordering_fields = ('name',)
 
 
 class GameCategoryDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -56,6 +62,21 @@ class GameList(generics.ListCreateAPIView):
     permission_classes = (
         permissions.IsAuthenticatedOrReadOnly,
         IsOwnerOrReadOnly,
+    )
+    # 필터, 검색, 정렬 기능에서 사용할 필드 지정
+    filter_fields = (
+        'name',
+        'game_category',
+        'release_date',
+        'played',
+        'owner',
+    )
+    search_fields = (
+        '^name',
+    )
+    ordering_fields = (
+        'name',
+        'release_date',
     )
 
     def perform_create(self, serializer):
@@ -78,6 +99,16 @@ class PlayerList(generics.ListCreateAPIView):
     queryset = Player.objects.all()
     serializer_class = PlayerSerializer
     name = 'player-list'
+    filter_fields = (
+        'name',
+        'gender',
+    )
+    search_fields = (
+        '^name',
+    )
+    ordering_fields = (
+        'name',
+    )
 
 
 class PlayerDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -86,10 +117,50 @@ class PlayerDetail(generics.RetrieveUpdateDestroyAPIView):
     name = 'player-detail'
 
 
+class PlayerScoreFilter(FilterSet):
+    min_score = NumberFilter(
+        name='score', lookup_expr='gte'
+    )
+    max_score = NumberFilter(
+        name='score', lookup_expr='lte'
+    )
+    from_score_date = DateTimeFilter(
+        name='score_date', lookup_expr='gte'
+    )
+    to_score_date = DateTimeFilter(
+        name='score_date', lookup_expr='lte'
+    )
+    player_name = AllValuesFilter(
+        name='player__name'
+    )
+    game_name = AllValuesFilter(
+        name='game__name'
+    )
+
+    class Meta:
+        model = PlayerScore
+        fields = (
+            'score',
+            'from_score_date',
+            'to_score_date',
+            'min_score',
+            'max_score',
+            # player__name 에는 player_name으로 접근할 것
+            'player_name',
+            # game__name 에는 game_name으로 접근할 것
+            'game_name'
+        )
+
+
 class PlayerScoreList(generics.ListCreateAPIView):
     queryset = PlayerScore.objects.all()
     serializer_class = PlayerScoreSerializer
-    name = 'playerscore-list'
+    name = 'playerscore-list',
+    filter_class = PlayerScoreFilter
+    ordering_fields = (
+        'score',
+        'score_date',
+    )
 
 
 class PlayerScoreDetail(generics.RetrieveUpdateDestroyAPIView):

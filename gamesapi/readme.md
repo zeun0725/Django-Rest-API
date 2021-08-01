@@ -20,4 +20,6 @@ superuser: root
  
 
 ### 의존 패키지
-pip install django-filter
+pip install django-filter  
+pip install django-crispy-forms  
+
