@@ -14,7 +14,7 @@ from games.serializers import UserSerializer
 from rest_framework import permissions
 from games.permissions import IsOwnerOrReadOnly
 from rest_framework.throttling import ScopedRateThrottle
-from django_filters import FilterSet
+from django_filters import rest_framework as filters
 from django_filters import NumberFilter, DateTimeFilter, AllValuesFilter
 
 
@@ -106,8 +106,8 @@ class PlayerDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PlayerSerializer
     name = 'player-detail'
 
-
-class PlayerScoreFilter(FilterSet):
+# 여기가 문제다 filter가 문제야...
+class PlayerScoreFilter(filters.FilterSet):
     min_score = NumberFilter(
         name='score', lookup_expr='gte')
     max_score = NumberFilter(
