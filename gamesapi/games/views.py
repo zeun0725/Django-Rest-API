@@ -106,20 +106,20 @@ class PlayerDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PlayerSerializer
     name = 'player-detail'
 
-# 여기가 문제다 filter가 문제야...
+
 class PlayerScoreFilter(filters.FilterSet):
     min_score = NumberFilter(
-        name='score', lookup_expr='gte')
+        field_name='score', lookup_expr='gte')
     max_score = NumberFilter(
-        name='score', lookup_expr='lte')
+        field_name='score', lookup_expr='lte')
     from_score_date = DateTimeFilter(
-        name='score_date', lookup_expr='gte')
+        field_name='score_date', lookup_expr='gte')
     to_score_date = DateTimeFilter(
-        name='score_date', lookup_expr='lte')
+        field_name='score_date', lookup_expr='lte')
     player_name = AllValuesFilter(
-        name='player__name')
+        field_name='player__name')
     game_name = AllValuesFilter(
-        name='game__name')
+        field_name='game__name')
 
     class Meta:
         model = PlayerScore
