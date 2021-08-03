@@ -20,4 +20,13 @@ superuser: root
  
 
 ### 의존 패키지
-pip install django-filter
+pip install django-filter  
+pip install django-crispy-forms  
+
+
+### 장애 대응
+```
+ NumberFilter(
+        field_name='score', lookup_expr='gte')
+ # name 이 아니라 field_name 임
+ ```
