@@ -22,7 +22,9 @@ superuser: root
 ### 의존 패키지
 pip install django-filter  
 pip install django-crispy-forms  
-
+**단위테스트 설정**    
+pip install covarage
+pip install django-nose
 
 ### 장애 대응
 ```
