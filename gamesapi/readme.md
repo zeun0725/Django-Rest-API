@@ -32,3 +32,7 @@ pip install django-nose
         field_name='score', lookup_expr='gte')
  # name 이 아니라 field_name 임
  ```
+
+### 단위 테스트 실행
+python manage.py test -v 2
+

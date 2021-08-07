@@ -2,14 +2,14 @@ from django.test import TestCase
 from django.urls import reverse
 from django.utils.http import urlencode
 from rest_framework import status
-from django.test import TestCase
+from rest_framework.test import APITestCase
 from games.models import GameCategory
 
 #===================================================================
 #self.assertEqual = 응답의 속성을 검사해 응답의 json 본문이 포함된 데이터를 점검함
 #===================================================================
 
-class GameCategoryTests(TestCase):
+class GameCategoryTests(APITestCase):
     def create_game_category(self, name):
         url = reverse('gamecategory-list')
         data = {'name': name}
@@ -19,7 +19,7 @@ class GameCategoryTests(TestCase):
     def test_create_and_retrieve_game_category(self):
         new_game_category_name = 'New Game Category'
         response = self.create_game_category(new_game_category_name)
-        self.assertEqual(response.status_coode, status.HTTP_201_CREATED)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(GameCategory.objects.count(), 1)
         self.assertEqual(
             GameCategory.objects.get().name,
@@ -50,7 +50,7 @@ class GameCategoryTests(TestCase):
         url = reverse('gamecategory-list')
         response = self.client.get(url, format='json')
         self.assertEqual(
-            response.status_coode,
+            response.status_code,
             status.HTTP_200_OK
         )
         self.assertEqual(
